@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruffle Flash Player</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        /* Container for the Flash content */
+        #flash-container {
+            width: 800px;
+            height: 600px;
+            background-color: #000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+    </style>
+    <!-- 1. Load the official Ruffle player script from the CDN -->
+    <script src="https://unpkg.com"></script>
+</head>
+<body>
+
+    <!-- 2. The target div where Ruffle will inject the player -->
+    <div id="flash-container"></div>
+
+    <script>
+        // 3. Initialize Ruffle once the page loads
+        window.addEventListener("DOMContentLoaded", () => {
+            const ruffle = window.RufflePlayer;
+            
+            // Check if Ruffle loaded successfully
+            if (ruffle) {
+                const player = ruffle.newest().createPlayer();
+                const container = document.getElementById("flash-container");
+                
+                // Nest the player inside our container div
+                container.appendChild(player);
+                
+                // 4. LOAD YOUR SWF FILE HERE
+                // Replace "your-game.swf" with the actual path or URL to your Flash file
+                player.load({
+                    url: "your-game.swf",
+                    allowScriptAccess: true
+                });
+            } else {
+                console.error("Ruffle failed to load from CDN.");
+            }
+        });
+    </script>
+
+</body>
+</html>
